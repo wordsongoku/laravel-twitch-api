@@ -4,7 +4,7 @@ namespace Zarlach\TwitchApi\Services;
 
 use Zarlach\TwitchApi\API\Api;
 use Zarlach\TwitchApi\API\Authentication;
-use Zarlach\TwitchApi\API\Blocks;
+use Zarlach\TwitchApi\API\Bits;
 use Zarlach\TwitchApi\API\Channels;
 use Zarlach\TwitchApi\API\Chat;
 use Zarlach\TwitchApi\API\Follow;
@@ -45,28 +45,10 @@ class TwitchApiService extends Api
     }
 
     /**
-     * Blocks.
+     * Bits
      */
-    public function ignoreList($user, $token = null)
-    {
-        $blocks = new Blocks($this->getToken($token));
-
-        return $blocks->blocks($user);
-    }
-
-    public function ignore($user, $target, $token = null)
-    {
-        $blocks = new Blocks($this->getToken($token));
-
-        return $blocks->putBlock($user, $target);
-    }
-
-    public function unignore($user, $target, $token = null)
-    {
-        $blocks = new Blocks($this->getToken($token));
-
-        return $blocks->deleteBlock($user, $target);
-    }
+    
+    // Bits
 
     /**
      * Channels.
@@ -306,33 +288,64 @@ class TwitchApiService extends Api
     /**
      * Users.
      */
-    public function user($user)
+    public function user($token = null)
+    {
+        $user = new Users();
+
+        return $user->user($this->getToken($token));
+    }
+
+    public function users($id, $options = [])
     {
         $users = new Users();
 
-        return $users->user($user);
+        return $users->users($id, $options);
     }
 
-    public function users($options)
+    public function userByName($options)
     {
         $users = new Users();
 
-        return $users->users($options);
+        return $users->userByName($options);
     }
 
-    public function authUser($token = null)
-    {
+    public function userEmotes($id, $token = null) {
+        
         $users = new Users();
 
-        return $users->authenticatedUser($this->getToken($token));
+        return $users->userEmotes($id, $this->getToken($token));
     }
 
-    public function followedChannelVideos($token = null)
+    public function checkUserSubscriptionByChannel($id, $cid, $token = null) 
     {
         $users = new Users();
-
-        return $users->followedChannelVideos($this->getToken($token));
+        return $users->checkUserSubscriptionByChannel($id, $cid, $this->getToken($token));
     }
+
+    public function userFollows($id, $options = []) 
+    {
+        $users = new Users();
+        return $users->userFollows($id, $options);
+    }
+
+    public function userFollowsByChannel($id, $cid) 
+    {
+        $users = new Users();
+        return $users->userFollowsByChannel($id, $cid);
+    }
+
+    public function followChannel($id, $cid, $token = null, $options = [])
+    {
+        $users = new Users();
+        return $users->followChannel($id, $cid, $this->getToken($token), $options);
+    }
+
+    public function unfollowChannel($id, $cid, $token = null)
+    {
+        $users = new Users();
+        return $users->unfollowChannel($id, $cid, $this->getToken($token));
+    }
+    
 
     /**
      * Videos.
