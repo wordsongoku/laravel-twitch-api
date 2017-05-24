@@ -3,7 +3,7 @@
 namespace Zarlach\TwitchApi\API;
 
 /**
- * Twitch documentation: https://github.com/justintv/Twitch-API/blob/master/v3_resources/teams.md.
+ * Twitch documentation: https://dev.twitch.tv/docs/v5/reference/teams/.
  */
 class Teams extends Api
 {
@@ -14,7 +14,7 @@ class Teams extends Api
      *
      * @return JSON List of streams
      */
-    public function teams($options = [])
+    public function getAllTeams($options = [])
     {
         $availableOptions = ['limit', 'offset'];
 
@@ -28,7 +28,7 @@ class Teams extends Api
      *
      * @return JSON Team object
      */
-    public function team($team)
+    public function getTeam($team)
     {
         return $this->sendRequest('GET', 'teams/'.$team);
     }

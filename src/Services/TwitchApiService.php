@@ -261,18 +261,18 @@ class TwitchApiService extends Api
     /**
      * Teams.
      */
-    public function teams()
+    public function getAllTeams($options = [])
     {
         $teams = new Teams();
 
-        return $teams->teams();
+        return $teams->getAllTeams();
     }
 
-    public function team($team)
+    public function getTeam($team)
     {
         $teams = new Teams();
 
-        return $teams->team($team);
+        return $teams->getTeam($team);
     }
 
     /**
@@ -340,24 +340,24 @@ class TwitchApiService extends Api
     /**
      * Videos.
      */
-    public function video($id)
+    public function getVideo($id)
     {
         $videos = new Videos();
 
-        return $videos->video($id);
+        return $videos->getVideo($id);
     }
 
-    public function topVideos($options = [])
+    public function getTopVideos($options = [])
     {
         $videos = new Videos();
 
-        return $videos->videosTop($options);
+        return $videos->getTopVideos($options);
     }
 
-    public function channelVideos($channel, $options = [])
+    public function getFollowedVideos($token = null, $options = [])
     {
         $videos = new Videos();
 
-        return $videos->channelVideos($channel, $options);
+        return $videos->getFollowedVideos($this->getToken($token), $options);
     }
 }

@@ -3,48 +3,57 @@
 namespace Zarlach\TwitchApi\API;
 
 /**
- * Twitch documentation: https://github.com/justintv/Twitch-API/blob/master/v3_resources/videos.md.
+ * Twitch documentation: https://dev.twitch.tv/docs/v5/reference/videos/.
  */
 class Videos extends Api
 {
     /**
-     * Get video object.
+     * Gets a specified video object.
      *
      * @param string $id Video ID, including the prefixed letter, example: c6055863
      *
      * @return JSON Video object
      */
-    public function video($id)
+    public function getVideo($id)
     {
         return $this->sendRequest('GET', 'videos/'.$id);
     }
 
     /**
-     *  Get top videos by number of views.
+     *  Gets the top videos based on viewcount, optionally filtered by game or time period.
      *
      * @param array $options Video list options
      *
      * @return JSON List of videos
      */
-    public function videosTop($options = [])
+    public function getTopVideos($options = [])
     {
-        $availableOptions = ['limit', 'offset', 'game', 'period'];
+        $availableOptions = ['limit', 'offset', 'game', 'period', 'broadcast_type', 'language', 'sort'];
 
         return $this->sendRequest('GET', 'videos/top', false, $options, $availableOptions);
     }
 
     /**
-     * Get list of video objects belonging to channel.
+     * Gets the videos from channels followed by a user, based on a specified OAuth token.
      *
-     * @param string $channel Channel name
+     * @param string $token Twitch token
      * @param array  $options Video list options
      *
      * @return JSON List of videos
      */
-    public function channelVideos($channel, $options = [])
+    public function getFollowedVideos($token = null, $options = [])
     {
-        $availableOptions = ['limit', 'offset', 'broadcasts', 'hls'];
+        $availableOptions = ['limit', 'offset', 'broadcast_type', 'language', 'sort'];
 
-        return $this->sendRequest('GET', 'channels/'.$channel.'/videos', false, $options, $availableOptions);
+        return $this->sendRequest('GET', 'videos/followed', $this->getToken($token), $options, $availableOptions);
     }
+
+    /*
+    MISSING:
+    Create Video
+    Upload Video Part
+    Complete Video Upload
+    Update Video
+    Delete Video
+    */
 }
