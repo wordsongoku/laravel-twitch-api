@@ -223,32 +223,39 @@ class TwitchApiService extends Api
     /**
      * Streams.
      */
-    public function liveChannel($channel)
+    public function getStreamByUser($id, $options = [])
     {
         $streams = new Streams();
 
-        return $streams->streamsChannel($channel);
+        return $streams->getStreamByUser($id, $options);
     }
 
-    public function streams($options)
+    public function getLiveStreams($options = [])
     {
         $streams = new Streams();
 
-        return $streams->streams($options);
+        return $streams->getLiveStreams($options);
     }
 
-    public function featuredStreams($options = [])
+    public function getStreamsSummary($options = [])
     {
         $streams = new Streams();
 
-        return $streams->streamsFeatured($options);
+        return $streams->getStreamsSummary($options);
     }
 
-    public function streamSummaries($options = [])
+    public function getFeaturedStreams($options = [])
     {
         $streams = new Streams();
 
-        return $streams->streamSummaries($options);
+        return $streams->getFeaturedStreams($options);
+    }
+
+    public function getFollowedStreams($token = null, $options = [])
+    {
+        $streams = new Streams();
+
+        return $streams->getFollowedStreams($this->getToken($token), $options);
     }
 
     /**

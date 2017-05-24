@@ -3,44 +3,60 @@
 namespace Zarlach\TwitchApi\API;
 
 /**
- * Twitch documentation: https://github.com/justintv/Twitch-API/blob/master/v3_resources/streams.md.
+ * Twitch documentation: https://dev.twitch.tv/docs/v5/reference/streams/.
  */
 class Streams extends Api
 {
     /**
-     * Stream info (if channel is live).
+     * Gets stream information (the stream object) for a specified user.
      *
-     * @param string $channel Channel name
+     * @param integer $id Twitch Channel ID
+     * @param arrat $options List options
      *
      * @return JSON Stream object
      */
-    public function streamsChannel($channel)
+    public function getStreamByUser($id, $options = [])
     {
-        return $this->sendRequest('GET', 'streams/'.$channel);
+        $availableOptions = ['stream_type'];
+        return $this->sendRequest('GET', 'streams/'.$id, false, $options, $availableOptions);
     }
 
     /**
-     * List of streams, ordered by the number of viewers.
+     * Gets a list of live streams.
      *
      * @param arrat $options List options
      *
      * @return JSON List of streams
      */
-    public function streams($options)
+    public function getLiveStreams($options = [])
     {
-        $availableOptions = ['game', 'channel', 'limit', 'offset', 'client_id'];
+        $availableOptions = ['channel', 'game', 'language', 'stream_type', 'limit', 'offset'];
 
         return $this->sendRequest('GET', 'streams', false, $options, $availableOptions);
     }
 
     /**
-     * Return featured/promoted streams.
+     * Gets a summary of live streams.
+     *
+     * @param array $options Active streams list options
+     *
+     * @return JSON List of active streams
+     */
+    public function getStreamsSummary($options = [])
+    {
+        $availableOptions = ['game'];
+
+        return $this->sendRequest('GET', 'streams/summary', false, $options, $availableOptions);
+    }
+
+    /**
+     * Gets a list of all featured live streams.
      *
      * @param array $options Featured stream list options
      *
      * @return JSON List of featured/promoted streams
      */
-    public function streamsFeatured($options = [])
+    public function getFeaturedStreams($options = [])
     {
         $availableOptions = ['limit', 'offset'];
 
@@ -48,16 +64,18 @@ class Streams extends Api
     }
 
     /**
-     * Summary of active streams.
+     * Gets a list of online streams a user is following, based on a specified OAuth token.
      *
-     * @param array $options Active streams list options
+     * @param string $token Twitch token
+     * @param array $options Featured stream list options
      *
-     * @return JSON List of active streams
+     * @return JSON List of online streams a user is following, based on a specified OAuth token.
      */
-    public function streamSummaries($options = [])
+    public function getFollowedStreams($token = null, $options = [])
     {
-        $availableOptions = ['game', 'limit', 'offset'];
+        $availableOptions = ['stream_type', 'limit', 'offset'];
 
-        return $this->sendRequest('GET', 'streams/summary', false, $options, $availableOptions);
+        return $this->sendRequest('GET', 'streams/followed', $this->getToken($token), $options, $availableOptions);
     }
+
 }
