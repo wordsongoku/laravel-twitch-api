@@ -3,18 +3,18 @@
 namespace Zarlach\TwitchApi\API;
 
 /**
- * Twitch documentation: https://github.com/justintv/Twitch-API/blob/master/v3_resources/games.md.
+ * Twitch documentation: https://dev.twitch.tv/docs/v5/reference/games/.
  */
 class Games extends Api
 {
     /**
-     * List of top games.
+     * Gets games sorted by number of current viewers on Twitch, most popular first.
      *
      * @param array $options List options
      *
      * @return JSON List of games
      */
-    public function topGames($options = [])
+    public function getTopGames($options = [])
     {
         $availableOptions = ['limit', 'offset'];
 

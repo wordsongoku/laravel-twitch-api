@@ -3,41 +3,42 @@
 namespace Zarlach\TwitchApi\API;
 
 /**
- * Twitch documentation: https://github.com/justintv/Twitch-API/blob/master/v3_resources/chat.md.
+ * Twitch documentation: https://dev.twitch.tv/docs/v5/reference/chat/.
  */
 class Chat extends Api
 {
     /**
-     * Returns a links object to all other chat endpoints.
+     * Gets a list of badges that can be used in chat for a specified channel.
      *
-     * @param string $channel Channel name
-     *
-     * @return JSON List of endpoints
-     */
-    public function chat($channel)
-    {
-        return $this->sendRequest('GET', 'chat/'.$channel);
-    }
-
-    /**
-     * Get chat badges for channel.
-     *
-     * @param string $channel Channel name
+     * @param integer $id Twitch Channel ID
      *
      * @return JSON Chat badges
      */
-    public function chatBadges($channel)
+    public function getChatBadgesByChannel($id)
     {
-        return $this->sendRequest('GET', 'chat/'.$channel.'/badges');
+        return $this->sendRequest('GET', 'chat/'.$id.'/badges');
     }
 
     /**
-     * Get list of every emoticon object.
+     * Gets all chat emoticons (not including their images) in one or more specified sets.
+     *
+     * @param integer $id Twitch Channel ID
+     *
+     * @return JSON Chat badges
+     */
+    public function getChatEmoticonsBySet($options = [])
+    {
+        $availableOptions = ['emotesets'];
+        return $this->sendRequest('GET', 'chat/emoticon_images', false, $options, $availableOptions);
+    }
+
+    /**
+     * Gets all chat emoticons (including their images)..
      *
      * @return JSON List of emoticons
      */
-    public function chatEmoticons()
+    public function getAllChatEmoticons()
     {
-        return $this->sendRequest('GET', 'chat/emotes');
+        return $this->sendRequest('GET', 'chat/emoticons');
     }
 }

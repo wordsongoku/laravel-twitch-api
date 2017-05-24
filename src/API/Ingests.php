@@ -3,16 +3,16 @@
 namespace Zarlach\TwitchApi\API;
 
 /**
- * Twitch documentation: https://github.com/justintv/Twitch-API/blob/master/v3_resources/ingests.md.
+ * Twitch documentation: https://dev.twitch.tv/docs/v5/reference/ingests/.
  */
 class Ingests extends Api
 {
     /**
-     * List of servers/ingests.
+     * Gets a list of Twitch ingest servers.
      *
      * @return JSON List of servers/ingests
      */
-    public function ingests()
+    public function getIngestServerList()
     {
         return $this->sendRequest('GET', 'ingests');
     }

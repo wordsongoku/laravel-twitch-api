@@ -11,7 +11,6 @@ use Zarlach\TwitchApi\API\Games;
 use Zarlach\TwitchApi\API\Ingests;
 use Zarlach\TwitchApi\API\Search;
 use Zarlach\TwitchApi\API\Streams;
-use Zarlach\TwitchApi\API\Subscriptions;
 use Zarlach\TwitchApi\API\Teams;
 use Zarlach\TwitchApi\API\Users;
 use Zarlach\TwitchApi\API\Videos;
@@ -158,72 +157,68 @@ class TwitchApiService extends Api
     /**
      * Chat.
      */
-    public function chat($channel)
+    public function getChatBadgesByChannel($id)
     {
         $chat = new Chat();
 
-        return $chat->chatChannel($channel);
+        return $chat->getChatBadgesByChannel($id);
     }
 
-    public function chatBadges($channel)
+    public function getChatEmoticonsBySet($options = [])
     {
         $chat = new Chat();
 
-        return $chat->chatBadges($channel);
+        return $chat->getChatEmoticonsBySet($options);
     }
 
-    public function chatEmoticons($channel)
+    public function getAllChatEmoticons()
     {
         $chat = new Chat($channel);
 
-        return $chat->chatEmoticons($channel);
+        return $chat->getAllChatEmoticons();
     }
 
     /**
      * Games.
      */
-    public function topGames($options = [])
+    public function getTopGames($options = [])
     {
         $games = new Games();
 
-        return $games->topGames($options);
+        return $games->getTopGames($options);
     }
 
     /**
      * Ingests.
      */
-    public function ingests($options = [])
+    public function getIngestServerList($options = [])
     {
         $ingests = new Ingests();
 
-        return $ingests->ingests($options);
+        return $ingests->getIngestServerList($options);
     }
 
     /**
      * Search.
      */
-    public function searchChannels($options)
+    public function searchChannels($query = null, $options = [])
     {
         $search = new Search();
 
-        return $search->searchChannels($options);
+        return $search->searchChannels($query, $options);
     }
 
-    /* Coming Soon, use streams() for now
-
-    public function searchStreams($options)
+    public function searchGames($query, $options = [])
     {
         $search = new Search();
-        return $search->searchStreams($options);
-    }*/
+        return $search->searchGames($query, $options);
+    }
 
-    /* Coming Soon
-
-    public function searchGames($options)
+    public function searchStreams($query, $options = [])
     {
         $search = new Search();
-        return $search->searchGames($options);
-    }*/
+        return $search->searchStreams($query, $options);
+    }
 
     /**
      * Streams.
@@ -254,30 +249,6 @@ class TwitchApiService extends Api
         $streams = new Streams();
 
         return $streams->streamSummaries($options);
-    }
-
-    /**
-     * Subscriptions.
-     */
-    public function subscribers($channel, $options = [], $token = null)
-    {
-        $subscriptions = new Subscriptions();
-
-        return $subscriptions->channelsSubscriptions($channel, $options, $this->getToken($token));
-    }
-
-    public function subscriber($channel, $user, $token = null)
-    {
-        $subscriptions = new Subscriptions();
-
-        return $subscriptions->channelSubscriptionUser($channel, $user, $this->getToken($token));
-    }
-
-    public function subscribedToChannel($channel, $user, $token = null)
-    {
-        $subscriptions = new Subscriptions();
-
-        return $subscriptions->userSubscriptionChannel($channel, $user, $this->getToken($token));
     }
 
     /**
