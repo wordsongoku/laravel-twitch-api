@@ -7,6 +7,7 @@ use Zarlach\TwitchApi\API\Authentication;
 use Zarlach\TwitchApi\API\Bits;
 use Zarlach\TwitchApi\API\Channels;
 use Zarlach\TwitchApi\API\Chat;
+use Zarlach\TwitchApi\API\Clips;
 use Zarlach\TwitchApi\API\Games;
 use Zarlach\TwitchApi\API\Ingests;
 use Zarlach\TwitchApi\API\Search;
@@ -173,10 +174,34 @@ class TwitchApiService extends Api
 
     public function getAllChatEmoticons()
     {
-        $chat = new Chat($channel);
+        $chat = new Chat();
 
         return $chat->getAllChatEmoticons();
     }
+
+    /**
+     * Clips.
+     */
+      public function getClips($slug)
+    {
+        $chat = new Clips();
+
+        return $chat->getClips($slug);
+    }
+
+    public function getTopClips($options = [])
+    {
+        $chat = new Clips();
+
+        return $chat->getTopClips($options);
+    }
+
+    public function getFollowedClips($token = null, $options = [])
+    {
+        $chat = new Clips();
+
+        return $chat->getFollowedClips($this->getToken($token), $options);
+    }           
 
     /**
      * Games.
