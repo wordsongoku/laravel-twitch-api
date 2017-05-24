@@ -16,7 +16,7 @@ Corresponding heading in Twitch's v5 documentation:
 
 - Authentication API (fully integrated)
 - Bits API (fully integrated)
-- ~~Channel Feed Api~~ (coming)
+- Channel Feed Api (fully integrated)
 - Channels API (fully integrated)
 - Chat API (fully integrated)
 - Clips API (fully integrated)

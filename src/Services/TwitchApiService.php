@@ -6,6 +6,7 @@ use Zarlach\TwitchApi\API\Api;
 use Zarlach\TwitchApi\API\Authentication;
 use Zarlach\TwitchApi\API\Bits;
 use Zarlach\TwitchApi\API\Channels;
+use Zarlach\TwitchApi\API\ChannelFeed;
 use Zarlach\TwitchApi\API\Chat;
 use Zarlach\TwitchApi\API\Clips;
 use Zarlach\TwitchApi\API\Games;
@@ -153,6 +154,87 @@ class TwitchApiService extends Api
         $channels = new Channels();
 
         return $channels->deleteChannelFromCommunity($id, $this->getToken($token));
+    }
+
+    /**
+     * Channel Feed.
+     */
+    // getMultipleFeedPosts needs a fix as this can also be used with and without token, but when not submitting a token Api.php will throw an exception
+     public function getMultipleFeedPosts($id, $token = null, $options = [])
+    {
+        $channel_feed = new ChannelFeed();
+
+        return $channel_feed->getMultipleFeedPosts($id, $this->getToken($token), $options);
+    }
+
+    public function getFeedPost($id, $post, $token = null, $options = [])
+    {
+        $channel_feed = new ChannelFeed();
+
+        return $channel_feed->getFeedPost($id, $post, $this->getToken($token), $options);
+    }
+
+    public function createFeedPost($id, $content, $token = null, $options = [])
+    {
+        $channel_feed = new ChannelFeed();
+
+        return $channel_feed->createFeedPost($id, $content, $this->getToken($token), $options);
+    }
+
+    public function deleteFeedPost($id, $post, $token = null)
+    {
+        $channel_feed = new ChannelFeed();
+
+        return $channel_feed->deleteFeedPost($id, $post, $this->getToken($token));
+    }
+
+    public function createReactionToAFeedPost($id, $post, $emote, $token = null)
+     {
+        $channel_feed = new ChannelFeed();
+
+        return $channel_feed->createReactionToAFeedPost($id, $post, $emote, $this->getToken($token));
+    }
+
+     public function deleteReactionToAFeedPost($id, $post, $emote, $token = null)
+     {
+        $channel_feed = new ChannelFeed();
+
+        return $channel_feed->deleteReactionToAFeedPost($id, $post, $emote, $this->getToken($token));
+    }
+
+    public function getFeedComments($id, $post, $token = null, $options = [])
+    {
+        $channel_feed = new ChannelFeed();
+
+        return $channel_feed->getFeedComments($id, $post, $this->getToken($token), $options);
+    }
+
+    public function createFeedComment($id, $post, $content, $token = null, $options = [])
+    {
+        $channel_feed = new ChannelFeed();
+
+        return $channel_feed->createFeedComment($id, $post, $content, $this->getToken($token), $options);
+    }
+
+    public function deleteFeedComment($id, $post, $comment, $token = null)
+    {
+        $channel_feed = new ChannelFeed();
+
+        return $channel_feed->deleteFeedComment($id, $post, $comment, $this->getToken($token));
+    }
+
+    public function createReactionToAFeedComment($id, $post, $comment, $emote, $token = null)
+    {
+        $channel_feed = new ChannelFeed();
+
+        return $channel_feed->createReactionToAFeedComment($id, $post, $comment, $emote, $this->getToken($token));
+    }
+
+    public function deleteReactionToAFeedComment($id, $post, $comment, $emote, $token = null)
+    {
+        $channel_feed = new ChannelFeed();
+
+        return $channel_feed->deleteReactionToAFeedComment($id, $post, $comment, $emote, $this->getToken($token));
     }
 
     /**

@@ -17,5 +17,6 @@ return [
         'user_subscriptions',
         'channel_check_subscription',
         'chat_login',
+        'channel_feed_edit',
     ],
 ];
