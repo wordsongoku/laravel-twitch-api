@@ -193,9 +193,12 @@ class Api
             $url .= (parse_url($url, PHP_URL_QUERY) ? '&' : '?').'oauth_token='.$this->getToken($token);
         }
 
-        // Add options to the URL
-        foreach ($options as $key => $value) {
-            $url .= (parse_url($url, PHP_URL_QUERY) ? '&' : '?').$key.'='.$value;
+        // Check if options where provided
+        if(!empty($options)) {
+            // Add options to the URL
+            foreach ($options as $key => $value) {
+                $url .= (parse_url($url, PHP_URL_QUERY) ? '&' : '?').$key.'='.$value;
+            }
         }
 
         return $url;

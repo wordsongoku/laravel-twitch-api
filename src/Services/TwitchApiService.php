@@ -48,44 +48,113 @@ class TwitchApiService extends Api
      * Bits
      */
     
-    // Bits
+    public function getCheermotes($options = [])
+    {
+        $bits = new Bits();
+
+        return $bits->getCheermotes($options);
+    }
 
     /**
      * Channels.
      */
-    public function channel($channel)
+
+    public function getChannel($token = null)
     {
         $channels = new Channels();
 
-        return $channels->channel($channel);
+        return $channels->getChannel($this->getToken($token));
     }
 
-    public function authChannel($token = null)
+    public function getChannelById($id)
     {
-        $channels = new Channels($this->getToken($token));
+        $channels = new Channels($id);
 
-        return $channels->authenticatedChannel();
+        return $channels->getChannelById($id);
     }
 
-    public function updateChannel($channel, $options, $token = null)
+    public function updateChannel($id, $token = null, $options = [])
     {
-        $channels = new Channels($this->getToken($token));
+        $channels = new Channels();
 
-        return $channels->putChannel($channel, $options);
+        return $channels->updateChannel($id, $this->getToken($token), $options);
     }
 
-    public function resetStreamKey($channel, $token = null)
+    public function getChannelEditors($id, $token = null)
     {
-        $channels = new Channels($this->getToken($token));
+        $channels = new Channels();
 
-        return $channels->deleteStreamKey($channel);
+        return $channels->getChannelEditors($id, $this->getToken($token));
     }
 
-    public function runCommercial($channel, $length = 30, $token = null)
+    public function getChannelFollowers($id, $options = [])
     {
-        $channels = new Channels($this->getToken($token));
+        $channels = new Channels();
 
-        return $channels->postCommercial($channel, $length);
+        return $channels->getChannelFollowers($id, $options);
+    }
+
+    public function getChannelTeams($id)
+    {
+        $channels = new Channels();
+
+        return $channels->getChannelTeams($id);
+    }
+
+    public function getChannelSubscribers($id, $token = null, $options = [])
+    {
+        $channels = new Channels();
+
+        return $channels->getChannelSubscribers($id, $this->getToken($token), $options);
+    }
+
+    public function checkChannelSubscriptionByUser($cid, $id, $token = null)
+    {
+        $channels = new Channels();
+
+        return $channels->checkChannelSubscriptionByUser($cid, $id, $this->getToken($token));
+    }
+
+    public function getChannelVideos($id, $options = []) 
+    {
+        $channels = new Channels();
+
+        return $channels->getChannelVideos($id, $options);
+    }
+
+    public function startChannelCommercial($id, $token = null, $length = 30)
+    {
+        $channels = new Channels();
+
+        return $channels->startChannelCommercial($id, $this->getToken($token), $length);
+    }
+
+    public function resetChannelStreamKey($id, $token = null)
+    {
+        $channels = new Channels();
+
+        return $channels->resetChannelStreamKey($id, $this->getToken($token));
+    }
+
+    public function getChannelCommunity($id, $token = null)
+    {
+        $channels = new Channels();
+
+        return $channels->getChannelCommunity($id, $this->getToken($token));
+    }
+
+    public function setChannelCommunity($id, $community, $token = null)
+    {
+        $channels = new Channels();
+
+        return $channels->setChannelCommunity($id, $community, $this->getToken($token));
+    }
+
+    public function deleteChannelFromCommunity($id, $token = null)
+    {
+        $channels = new Channels();
+
+        return $channels->deleteChannelFromCommunity($id, $this->getToken($token));
     }
 
     /**
@@ -288,32 +357,32 @@ class TwitchApiService extends Api
     /**
      * Users.
      */
-    public function user($token = null)
+    public function getUser($token = null)
     {
         $user = new Users();
 
-        return $user->user($this->getToken($token));
+        return $user->getUser($this->getToken($token));
     }
 
-    public function users($id, $options = [])
+    public function getUserById($id, $options = [])
     {
         $users = new Users();
 
-        return $users->users($id, $options);
+        return $users->getUserById($id, $options);
     }
 
-    public function userByName($options)
+    public function getUserByName($options = [])
     {
         $users = new Users();
 
-        return $users->userByName($options);
+        return $users->getUserByName($options);
     }
 
-    public function userEmotes($id, $token = null) {
+    public function getUserEmotes($id, $token = null) {
         
         $users = new Users();
 
-        return $users->userEmotes($id, $this->getToken($token));
+        return $users->getUserEmotes($id, $this->getToken($token));
     }
 
     public function checkUserSubscriptionByChannel($id, $cid, $token = null) 
@@ -322,16 +391,16 @@ class TwitchApiService extends Api
         return $users->checkUserSubscriptionByChannel($id, $cid, $this->getToken($token));
     }
 
-    public function userFollows($id, $options = []) 
+    public function getUserFollows($id, $options = []) 
     {
         $users = new Users();
-        return $users->userFollows($id, $options);
+        return $users->getUserFollows($id, $options);
     }
 
-    public function userFollowsByChannel($id, $cid) 
+    public function checkUserFollowsByChannel($id, $cid) 
     {
         $users = new Users();
-        return $users->userFollowsByChannel($id, $cid);
+        return $users->checkUserFollowsByChannel($id, $cid);
     }
 
     public function followChannel($id, $cid, $token = null, $options = [])

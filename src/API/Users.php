@@ -3,7 +3,7 @@
 namespace Zarlach\TwitchApi\API;
 
 /**
- * Twitch documentation: https://github.com/justintv/Twitch-API/blob/master/v3_resources/users.md.
+ * Twitch documentation: https://dev.twitch.tv/docs/v5/reference/users/.
  */
 class Users extends Api
 {
@@ -15,7 +15,7 @@ class Users extends Api
      *
      * @return JSON Authenticated user object
      */
-    public function user($token = null)
+    public function getUser($token = null)
     {
         return $this->sendRequest('GET', 'user', $this->getToken($token));
     }
@@ -28,13 +28,11 @@ class Users extends Api
      *
      * @return JSON Users object
      */
-    public function users($id, $options = [])
+    public function getUserById($id, $options = [])
     {
         $availableOptions = ['login'];
 
-        return empty($options) ?
-                        $this->sendRequest('GET', 'users/'.$id) : 
-                        $this->sendRequest('GET', 'users', false, $options, $availableOptions);
+        return $this->sendRequest('GET', 'users/'.$id, false, $options, $availableOptions);
     }
 
      /**
@@ -44,7 +42,7 @@ class Users extends Api
      *
      * @return JSON Users object
      */
-    public function userByName($options = [])
+    public function getUserByName($options = [])
     {
         $availableOptions = ['login'];
 
@@ -60,7 +58,7 @@ class Users extends Api
      * 
      * @return JSON Users object
      */
-    public function userEmotes($id, $token = null) 
+    public function getUserEmotes($id, $token = null) 
     {
         return $this->sendRequest('GET', 'users/'.$id.'/emotes', $this->getToken($token));
     }
@@ -87,13 +85,11 @@ class Users extends Api
      * 
      * @return JSON Users object
      */
-    public function userFollows($id, $options = []) 
+    public function getUserFollows($id, $options = []) 
     {
         $availableOptions = ['limit', 'offset', 'direction', 'sortby'];
 
-        return empty($options) ?
-                        $this->sendRequest('GET', 'users/'.$id.'/follows/channels') : 
-                        $this->sendRequest('GET', 'users/'.$id.'/follows/channels', false, $options, $availableOptions);
+        return $this->sendRequest('GET', 'users/'.$id.'/follows/channels', false, $options, $availableOptions);
     }
 
     /**
@@ -104,10 +100,9 @@ class Users extends Api
      * 
      * @return JSON Users object
      */
-    public function userFollowsByChannel($id, $cid)
+    public function checkUserFollowsByChannel($id, $cid)
     {
-
-        return $this->sendRequest('GET', 'users/'.$id.'/follows/channels/'.$cid);
+     return $this->sendRequest('GET', 'users/'.$id.'/follows/channels/'.$cid);
     }
 
     /**
@@ -124,9 +119,7 @@ class Users extends Api
     {
         $availableOptions = ['notifications'];
 
-        return empty($options) ?
-                        $this->sendRequest('PUT', 'users/'.$id.'/follows/channels/'.$cid, $this->getToken($token)) :
-                        $this->sendRequest('PUT', 'users/'.$id.'/follows/channels/'.$cid, $this->getToken($token), $options, $availableOptions);
+        return $this->sendRequest('PUT', 'users/'.$id.'/follows/channels/'.$cid, $this->getToken($token), $options, $availableOptions);
     }
 
     /**
