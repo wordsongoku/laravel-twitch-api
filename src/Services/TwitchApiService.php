@@ -7,10 +7,8 @@ use Zarlach\TwitchApi\API\Authentication;
 use Zarlach\TwitchApi\API\Bits;
 use Zarlach\TwitchApi\API\Channels;
 use Zarlach\TwitchApi\API\Chat;
-use Zarlach\TwitchApi\API\Follow;
 use Zarlach\TwitchApi\API\Games;
 use Zarlach\TwitchApi\API\Ingests;
-use Zarlach\TwitchApi\API\Root;
 use Zarlach\TwitchApi\API\Search;
 use Zarlach\TwitchApi\API\Streams;
 use Zarlach\TwitchApi\API\Subscriptions;
@@ -182,44 +180,6 @@ class TwitchApiService extends Api
     }
 
     /**
-     * Follow.
-     */
-    public function followers($channel, $options = [])
-    {
-        $follow = new Follow();
-
-        return $follow->channelFollows($channel, $options);
-    }
-
-    public function followings($user, $options)
-    {
-        $follow = new Follow();
-
-        return $follow->userFollowsChannels($user, $options);
-    }
-
-    public function userIsFollowing($user, $channel)
-    {
-        $follow = new Follow();
-
-        return $follow->userFollowsChannel($user, $channel);
-    }
-
-    public function follow($user, $channel, $options = [], $token = null)
-    {
-        $follow = new Follow($this->getToken($token));
-
-        return $follow->authenticatedUserFollowsChannel($user, $channel, $options);
-    }
-
-    public function unfollow($user, $channel, $token = null)
-    {
-        $follow = new Follow($this->getToken($token));
-
-        return $follow->authenticatedUserUnfollowsChannel($user, $channel);
-    }
-
-    /**
      * Games.
      */
     public function topGames($options = [])
@@ -237,23 +197,6 @@ class TwitchApiService extends Api
         $ingests = new Ingests();
 
         return $ingests->ingests($options);
-    }
-
-    /**
-     * Root.
-     */
-    public function root()
-    {
-        $root = new Root();
-
-        return $root->root();
-    }
-
-    public function authRoot($token = null)
-    {
-        $root = new Root($this->getToken($token));
-
-        return $root->authRoot();
     }
 
     /**
