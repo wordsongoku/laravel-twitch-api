@@ -11,7 +11,7 @@ class ChannelFeed extends Api
      * Gets posts from a specified channel feed.
      *
      * @param integer $id Twitch Channel ID
-     * @param string $token   Twitch token
+     * @param string $token (opt) Twitch token
      * @param array  $options Channel options
      *
      * @return JSON Channel Feed object
@@ -20,7 +20,9 @@ class ChannelFeed extends Api
     {
         $availableOptions = ['limit', 'cursor', 'comments'];
 
-        return $this->sendRequest('GET', 'feed/'.$id.'/posts', $this->getToken($token), $options, $availableOptions);
+        return ($token == false) ?
+            $this->sendRequest('GET', 'feed/'.$id.'/posts', false, $options, $availableOptions):
+            $this->sendRequest('GET', 'feed/'.$id.'/posts', $this->getToken($token), $options, $availableOptions);
     }
 
     /**
@@ -28,7 +30,7 @@ class ChannelFeed extends Api
      *
      * @param integer $id Twitch Channel ID
      * @param string $post Twitch Post ID
-     * @param string $token   Twitch token
+     * @param string $token (opt)  Twitch token
      * @param array  $options Channel options
      *
      * @return JSON Channel Feed object
@@ -37,7 +39,9 @@ class ChannelFeed extends Api
     {
     	$availableOptions = ['comments'];
 
-        return $this->sendRequest('GET', 'feed/'.$id.'/posts/'.$post, $this->getToken($token), $options, $availableOptions);
+        return ($token == false) ?
+            $this->sendRequest('GET', 'feed/'.$id.'/posts/'.$post, false, $options, $availableOptions):
+            $this->sendRequest('GET', 'feed/'.$id.'/posts/'.$post, $this->getToken($token), $options, $availableOptions);
     }
 
     /**
@@ -118,7 +122,9 @@ class ChannelFeed extends Api
     {
         $availableOptions = ['limit', 'cursor'];
 
-        return $this->sendRequest('GET', 'feed/'.$id.'/posts/'.$post.'/comments', $this->getToken($token), $options, $availableOptions);
+        return ($token == false) ?
+            $this->sendRequest('GET', 'feed/'.$id.'/posts/'.$post.'/comments', false, $options, $availableOptions):
+            $this->sendRequest('GET', 'feed/'.$id.'/posts/'.$post.'/comments', $this->getToken($token), $options, $availableOptions);
     }
 
     /**

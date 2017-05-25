@@ -164,14 +164,14 @@ class TwitchApiService extends Api
     {
         $channel_feed = new ChannelFeed();
 
-        return $channel_feed->getMultipleFeedPosts($id, $this->getToken($token), $options);
+        return $channel_feed->getMultipleFeedPosts($id, $token, $options);
     }
 
     public function getFeedPost($id, $post, $token = null, $options = [])
     {
         $channel_feed = new ChannelFeed();
 
-        return $channel_feed->getFeedPost($id, $post, $this->getToken($token), $options);
+        return $channel_feed->getFeedPost($id, $post, $token, $options);
     }
 
     public function createFeedPost($id, $content, $token = null, $options = [])
@@ -206,7 +206,7 @@ class TwitchApiService extends Api
     {
         $channel_feed = new ChannelFeed();
 
-        return $channel_feed->getFeedComments($id, $post, $this->getToken($token), $options);
+        return $channel_feed->getFeedComments($id, $post, $token, $options);
     }
 
     public function createFeedComment($id, $post, $content, $token = null, $options = [])
