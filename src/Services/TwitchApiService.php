@@ -442,7 +442,42 @@ class TwitchApiService extends Api
         $users = new Users();
         return $users->unfollowChannel($id, $cid, $this->getToken($token));
     }
-    
+
+    public function  getUserBlockList($id, $token = null, $options = [])
+    {
+        $users = new Users();
+        return $users->getUserBlockList($id, $this->getToken($token), $options);
+    }
+
+    public function  blockUser($id, $block, $token = null)
+    {
+        $users = new Users();
+        return $users->blockUser($id, $block, $this->getToken($token));
+    } 
+
+    public function  unblockUser($id, $unblock, $token = null)
+    {
+        $users = new Users();
+        return $users->unblockUser($id, $unblock, $this->getToken($token));
+    }
+
+    public function createUserConnectionToVHS($identifier, $token = null, $options = [])
+    {
+        $users = new Users();
+        return $users->createUserConnectionToVHS($identifier, $this->getToken($token), $options);
+    }
+
+    public function checkUserConnectionToVHS($token = null)
+    {
+        $users = new Users();
+        return $users->checkUserConnectionToVHS($this->getToken($token));
+    }
+
+    public function deleteUserConnectionToVHS($token = null)
+    {
+        $users = new Users();
+        return $users->deleteUserConnectionToVHS($this->getToken($token));
+    }
 
     /**
      * Videos.

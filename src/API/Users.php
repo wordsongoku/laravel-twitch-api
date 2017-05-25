@@ -137,14 +137,89 @@ class Users extends Api
     }
 
     /**
-     * UPCOMING FUNCTIONS
+     * Gets a specified user’s block list. List sorted by recency, newest first.
      *
-     * - Get User Block List
-     * - Block User
-     * - Unblock User
-     * - Create User Connection to Viewer Heartbeat Service (VHS)
-     * - Check User Connection to Viewer Heartbeat Service (VHS)
-     * - Delete User Connection to Viewer Heartbeat Service (VHS)
-    */
-    
+     * @param integer $id  Twitch User ID
+     * @param string $token Twitch token
+     * @param $options List options
+     * 
+     * @return JSON Users object
+     */
+    public function getUserBlockList($id, $token = null, $options = [])
+    {
+        $availableOptions = ['limit', 'offset'];
+
+        return $this->sendRequest('GET', 'users/'.$id.'/blocks', $this->getToken($token), $options, $availableOptions);
+    }
+
+    /**
+     * Blocks a user; that is, adds a specified target user to the blocks list of a specified source user.
+     *
+     * @param integer $id  Twitch User ID
+     * @param integer $block Twitch User ID to be blocked
+     * @param string $token Twitch token
+     * 
+     * @return JSON Users object
+     */
+    public function blockUser($id, $block, $token = null)
+    {
+        return $this->sendRequest('PUT', 'users/'.$id.'/blocks/'.$block, $this->getToken($token));
+    }
+
+    /**
+     * Unblocks a user; that is, deletes a specified target user from the blocks list of a specified source user.
+     *
+     * @param integer $id  Twitch User ID
+     * @param integer $unblock Twitch User ID to be unblocked
+     * @param string $token Twitch token
+     * 
+     * @return JSON Users object
+     */
+    public function unblockUser($id, $unblock, $token = null)
+    {
+        return $this->sendRequest('DELETE', 'users/'.$id.'/blocks/'.$unblock, $this->getToken($token));
+    }
+
+    /**
+     * Creates a connection between a user (an authenticated Twitch user, linked to a game user) and VHS, and starts returning the user’s VHS data in 
+     * each heartbeat. The game user is specified by a required identifier parameter.
+     *
+     * @param string $identifier The game user is specified by a required identifier parameter.
+     * @param string $token Twitch token
+     * 
+     * @return JSON Users object
+     */
+    public function createUserConnectionToVHS($identifier, $token = null, $options = [])
+    {
+        $availableOptions = ['identifier'];
+        $options = ['identifier' => $identifier];
+
+        return $this->sendRequest('PUT', 'user/vhs', $this->getToken($token), $options, $availableOptions);
+    }
+
+    /**
+     * Checks whether an authenticated Twitch user is connected to VHS.
+     *
+     * If a connection to the service exists for the specified user, the linked game user’s ID is returned; otherwise, an HTTP 404 response is returned.
+     *
+     * @param string $token Twitch token
+     * 
+     * @return JSON Users object
+     */
+    public function checkUserConnectionToVHS($token = null)
+    {
+        return $this->sendRequest('GET', 'user/vhs', $this->getToken($token));
+    }
+
+    /**
+     * Deletes the connection between an authenticated Twitch user and VHS.
+     *
+     * @param string $token Twitch token
+     * 
+     * @return JSON Users object
+     */
+    public function deleteUserConnectionToVHS($token = null)
+    {
+        return $this->sendRequest('DELETE', 'user/vhs', $this->getToken($token));
+    }    
 }

@@ -27,7 +27,7 @@ Corresponding heading in Twitch's v5 documentation:
 - Search API (fully integrated)
 - Streams API (fully integrated)
 - Teams API (fully integrated)
-- Users API (partially integrated, some features missing, e.g. Create User Connection to Viewer Heartbeat Service (VHS))
+- Users API (fully integrated)
 - Videos API (partially integrated, some features missing, e.g. VideoUpload)
 
 
